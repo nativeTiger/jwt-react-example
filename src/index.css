@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    --tw-text-opacity: 1;
+    background: rgb(249 249 249 / var(--tw-text-opacity));
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    --tw-text-opacity: 1;
+    background: rgb(219 234 254 / var(--tw-text-opacity));
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
+  .form {
+    @apply space-y-3;
+    &__title {
+      @apply text-3xl text-gray-600 font-semibold text-center mb-4;
+    }
+    &__label {
+      @apply text-sm font-medium pb-2 text-gray-600;
+    }
+    &__input {
+      @apply outline-none w-full mt-1 text-gray-500 border-2 rounded-md px-4 py-1.5 duration-200 focus:border-blue-600;
+    }
+    &__error {
+      @apply text-red-500 py-1 text-sm;
+    }
+  }
+}
