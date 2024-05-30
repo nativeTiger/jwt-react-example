@@ -1,12 +1,16 @@
-import { RefreshTokenAPI } from "@/services/refresh-token/api";
+import { getRefreshToken } from "@/services/refresh-token/api";
 import { useUserStore } from "@/store/user-store";
-import axios, { AxiosError, CreateAxiosDefaults, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from "axios";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-const baseConfig : CreateAxiosDefaults = {
+const baseConfig: CreateAxiosDefaults = {
   baseURL: `${import.meta.env.VITE_BASE_URL}`,
   withCredentials: true,
 };
@@ -21,7 +25,7 @@ instance.interceptors.request.use(
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
-    } 
+    }
 
     return config;
   },
@@ -44,7 +48,7 @@ instance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       try {
-        const response = await RefreshTokenAPI.getRefreshToken();
+        const response = await getRefreshToken();
 
         const { payload } = response;
 

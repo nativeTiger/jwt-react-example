@@ -3,15 +3,15 @@ import { AxiosError } from "axios";
 import { useUserStore } from "@/store/user-store";
 import { useMutation } from "@tanstack/react-query";
 import { SignInAPI } from "@/pages/sign-in/api/query-slice";
-
-interface ErrorResponse {
-  message: string;
-}
 import {
   SignInAPIResponseSchema,
   SignInFormType,
 } from "@/pages/sign-in/schema";
 import { toast } from "sonner";
+
+interface ErrorResponse {
+  message: string;
+}
 
 export function useSignIn() {
   const { setCredentials } = useUserStore();

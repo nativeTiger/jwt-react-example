@@ -10,7 +10,7 @@ const RefreshTokenRequest = RefreshTokenAPIRequestSchema;
 
 const RefreshTokenResponse = RefreshTokenAPIResponseSchema;
 
-const getRefreshToken = api<
+export const getRefreshToken = api<
   z.infer<typeof RefreshTokenRequest>,
   z.infer<typeof RefreshTokenResponse>
 >({
@@ -20,7 +20,3 @@ const getRefreshToken = api<
   responseSchema: RefreshTokenResponse,
   type: "public",
 });
-
-export const RefreshTokenAPI = {
-  getRefreshToken,
-};

@@ -7,7 +7,10 @@ export const SignInFormSchema = z.object({
     .trim()
     .email({ message: "Invalid Email" })
     .toLowerCase(),
-  password: z.string().trim().min(6, { message: "Password must be longer than or equal to 6 characters"}),
+  password: z
+    .string()
+    .trim()
+    .min(6, { message: "Password must be at least 6 characters long" }),
 });
 
 export type SignInFormType = z.infer<typeof SignInFormSchema>;

@@ -5,18 +5,20 @@ import { RiUserFill, RiLogoutBoxRLine } from "react-icons/ri";
 import { Button } from "@/components/button/button";
 import { Link, useNavigate } from "react-router-dom";
 import { Routes } from "@/utils/routes-constants";
-// import { SearchForm } from "@/components/ui/form";
-// import { Button } from "@/components/ui/button";
-// import { useSignOut } from "@/pages/auth/hooks";
+import { useLogOut } from "@/services/logout/api";
 
 export const Header = () => {
-  //   const handleLogout = () => signOutMutation.mutate();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const logoutMutation = useLogOut();
+
   return (
-    <header className ="header">
+    <header className="header">
       <nav className="nav">
-      <Link to={Routes.HOME} className="flex items-center space-x-3">
-          <figure className="text-lg"><RxMix /></figure>
+        <Link to={Routes.HOME} className="flex items-center space-x-3">
+          <figure className="text-lg">
+            <RxMix />
+          </figure>
           <h2 className="text-xl font-bold">Hello World</h2>
         </Link>
         <div className="flex items-center space-x-2">
@@ -56,7 +58,7 @@ export const Header = () => {
                     type="button"
                     variant="transparent"
                     className="justify-start"
-                    onClick={() => console.log("logout")}
+                    onClick={() => logoutMutation.mutate()}
                   >
                     <RiLogoutBoxRLine /> Logout
                   </Button>
