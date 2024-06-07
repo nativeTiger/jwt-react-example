@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { UserAPI } from "./api-slice";
+import { UserAPI } from "@/pages/customer/query-slice";
 
 export function useGetUsers() {
   return useQuery({
@@ -7,6 +7,5 @@ export function useGetUsers() {
     queryFn: () => {
       return UserAPI.getAllUser();
     },
-    enabled: false,
   });
 }

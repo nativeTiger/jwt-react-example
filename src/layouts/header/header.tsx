@@ -50,7 +50,7 @@ export const Header = () => {
                     className="justify-start"
                     onClick={() => navigate(Routes.CUSTOMER)}
                   >
-                    <RiUserFill /> Profile
+                    <RiUserFill /> Customers
                   </Button>
                 </Menu.Item>
                 <Menu.Item>

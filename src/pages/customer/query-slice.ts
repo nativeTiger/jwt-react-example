@@ -24,7 +24,7 @@ const UserAPISchema = z.object({
   }),
 });
 
-const GetAllUserRequest = z.void()
+const GetAllUserRequest = z.void();
 
 const GetAllUserResponse = UserAPISchema;
 
