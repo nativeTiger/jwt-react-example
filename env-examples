@@ -1,1 +1,1 @@
-VITE_BASE_URL = "http://localhost:3000/api/v1"
+VITE_BASE_URL = "YOUR_BASE_URL"
