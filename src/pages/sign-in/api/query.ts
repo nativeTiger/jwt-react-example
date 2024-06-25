@@ -8,13 +8,15 @@ import {
   SignInFormType,
 } from "@/pages/sign-in/schema";
 import { toast } from "sonner";
+import { LocalStorage } from "@/utils/localstorage";
+import { Storage } from "@/utils/storage-constants";
 
 interface ErrorResponse {
   message: string;
 }
 
 export function useSignIn() {
-  const { setCredentials } = useUserStore();
+  // const { setCredentials } = useUserStore();
   return useMutation<
     z.infer<typeof SignInAPIResponseSchema>,
     AxiosError<ErrorResponse>,
@@ -23,10 +25,10 @@ export function useSignIn() {
     mutationFn: (user) => SignInAPI.signIn(user),
     onSuccess: (data) => {
       const { payload, message } = data;
-
-      setCredentials({
-        accessToken: payload.accessToken,
-      });
+      LocalStorage.set(Storage.ACCESS_TOKEN, payload.accessToken);
+      // setCredentials({
+      //   accessToken: payload.accessToken,
+      // });
 
       toast.success(message);
     },

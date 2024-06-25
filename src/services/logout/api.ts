@@ -11,6 +11,8 @@ import { useUserStore } from "@/store/user-store";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "@/utils/routes-constants";
+import { LocalStorage } from "@/utils/localstorage";
+import { Storage } from "@/utils/storage-constants";
 
 const LogoutRequest = LogoutAPIRequestSchema;
 
@@ -33,7 +35,7 @@ const logout = api<
 export function useLogOut() {
   const navigate = useNavigate();
 
-  const { removeCredentials } = useUserStore();
+  // const { removeCredentials } = useUserStore();
   return useMutation<
     z.infer<typeof LogoutAPIResponseSchema>,
     AxiosError<ErrorResponse>
@@ -41,7 +43,8 @@ export function useLogOut() {
     mutationFn: logout,
     onSuccess: (data) => {
       const { message } = data;
-      removeCredentials();
+      // removeCredentials();
+      LocalStorage.remove(Storage.ACCESS_TOKEN);
       toast.success(message);
       navigate(Routes.SIGNIN);
     },

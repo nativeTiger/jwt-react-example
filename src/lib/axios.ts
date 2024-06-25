@@ -1,5 +1,7 @@
 import { getRefreshToken } from "@/services/refresh-token/api";
 import { useUserStore } from "@/store/user-store";
+import { LocalStorage } from "@/utils/localstorage";
+import { Storage } from "@/utils/storage-constants";
 import axios, {
   AxiosError,
   CreateAxiosDefaults,
@@ -21,7 +23,8 @@ export const instance = axios.create(baseConfig);
 
 instance.interceptors.request.use(
   function (config) {
-    const accessToken = useUserStore.getState().user?.accessToken;
+    // const accessToken = useUserStore.getState().user?.accessToken;
+    const accessToken = LocalStorage.get(Storage.ACCESS_TOKEN);
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -52,14 +55,16 @@ instance.interceptors.response.use(
 
         const { payload } = response;
 
-        useUserStore.setState({ user: { accessToken: payload.accessToken } });
+        // useUserStore.setState({ user: { accessToken: payload.accessToken } });
+        LocalStorage.set(Storage.ACCESS_TOKEN, payload.accessToken);
 
         originalRequest.headers.Authorization = `Bearer ${payload.accessToken}`;
 
         return instance(originalRequest);
       } catch (error) {
         if (error instanceof AxiosError && error.response?.status === 403) {
-          useUserStore.getState().removeCredentials();
+          // useUserStore.getState().removeCredentials();
+          LocalStorage.remove(Storage.ACCESS_TOKEN);
           return;
         }
       }
